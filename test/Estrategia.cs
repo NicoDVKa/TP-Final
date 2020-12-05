@@ -16,7 +16,32 @@ namespace DeepSpace
 
 		public String Consulta2( ArbolGeneral<Planeta> arbol)
 		{
-			return "Implementar";
+			Cola<ArbolGeneral<Planeta>> q = new Cola<ArbolGeneral<Planeta>>();
+			q.encolar(arbol);
+			int nivel = 0;
+			String mensaje = "";
+			while (!q.esVacia())
+			{
+				int elementos = q.cantElementos();
+				nivel++;
+				int cantidadPorNivel = 0;
+				while (elementos-- > 0)
+				{
+					ArbolGeneral<Planeta> nodoActual = q.desencolar();
+
+					if (nodoActual.getDatoRaiz().Poblacion() > 10)
+					{
+						cantidadPorNivel++;
+					}
+
+					foreach (ArbolGeneral<Planeta> hijo in nodoActual.getHijos())
+					{
+						q.encolar(hijo);
+					}
+				}
+				mensaje += "Nivel " + nivel + ": " + cantidadPorNivel + "\n";
+			}
+			return mensaje; ;
 		}
 
 
