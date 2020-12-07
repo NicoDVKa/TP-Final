@@ -10,7 +10,35 @@ namespace DeepSpace
 		
 		public String Consulta1( ArbolGeneral<Planeta> arbol)
 		{
-			return "Implementar";
+			Cola<ArbolGeneral<Planeta>> q = new Cola<ArbolGeneral<Planeta>>();
+			q.encolar(arbol);
+			int nivel = 0;
+			
+			
+			while (!q.esVacia())
+			{
+				int elementos = q.cantElementos();
+				nivel++;
+				
+				while (elementos-- > 0)
+				{
+					ArbolGeneral<Planeta> nodoActual = q.desencolar();
+
+					if (nodoActual.getDatoRaiz().EsPlanetaDeLaIA()) {
+						nivel--;
+						string texto = nivel.ToString();
+						return "La distancia entre la raiz y el planeta del bot es de: " + texto;
+					}
+                   
+						foreach (ArbolGeneral<Planeta> hijo in nodoActual.getHijos())
+						{
+							q.encolar(hijo);
+						}
+
+					
+				}
+			}
+			return "";
 		}
 
 
