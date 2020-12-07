@@ -20,6 +20,7 @@ namespace DeepSpace
 				int elementos = q.cantElementos();
 				nivel++;
 				
+				
 				while (elementos-- > 0)
 				{
 					ArbolGeneral<Planeta> nodoActual = q.desencolar();
@@ -67,7 +68,7 @@ namespace DeepSpace
 						q.encolar(hijo);
 					}
 				}
-				mensaje += "Nivel " + nivel + ": " + cantidadPorNivel + "\n";
+				mensaje += "Nivel " + nivel + ": " + cantidadPorNivel + "-----";
 			}
 			return mensaje; 
 		}
@@ -98,7 +99,7 @@ namespace DeepSpace
 						q.encolar(hijo);
 					}
 				}
-				mensaje += "Nivel " + nivel + ": " + poblacionPorNivel/cantidadPorNivel + "\n";
+				mensaje += "Nivel " + nivel + ": " + poblacionPorNivel/cantidadPorNivel + "-----";
 			}
 			return mensaje; 
 		}
