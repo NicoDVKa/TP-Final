@@ -81,8 +81,18 @@ namespace DeepSpace
 				int count = caminoIA.Count;
 				Movimiento ataque = new Movimiento(caminoIA[count - 1], caminoIA[count - 2]);//Realizo el ataque 
 				return ataque;
+            }else{//Si la raiz le pertenece al bot
+				List<Planeta> caminoPlayer = new List<Planeta>();//Creo el camino
+				caminoPlayer = this.caminoRaizPlayer(arbol, caminoPlayer);
+				for (int count = 0; count < caminoPlayer.Count; count++){
+                    if (!caminoPlayer[count].EsPlanetaDeLaIA()){
+						count--;
+						Movimiento ataque = new Movimiento(caminoPlayer[count], caminoPlayer[count + 1]);//Realizo el ataque 
+						return ataque;
+					}
+                }
+				return null;
 			}
-			return null;
 		}
 
 		//El metodo caminoRaizIa consigue un camino desde la raiz al primer planeta del bot
@@ -96,6 +106,24 @@ namespace DeepSpace
                     if (caminoAux!=null){//Si esta condicion es verdadera significa que el metodo encontro el planeta del bot
 						return caminoAux; 
                     }
+					camino.RemoveAt(camino.Count - 1);//En caso de llegar a un camino equivocado elimino el ultimo elemento 
+				}
+			}
+			return null;
+		}
+
+		//El metodo caminoRaizPlayer consigue un camino desde la raiz al primer planeta del bot
+		private List<Planeta> caminoRaizPlayer(ArbolGeneral<Planeta> arbol, List<Planeta> camino){
+			camino.Add(arbol.getDatoRaiz());//Agrego el planeta al camino
+			if (arbol.getDatoRaiz().EsPlanetaDelJugador())
+			{//Si encuentro el planeta del jugdor  retorno el camino
+				return camino;
+			}else{
+				foreach (ArbolGeneral<Planeta> hijo in arbol.getHijos()){
+					List<Planeta> caminoAux = this.caminoRaizPlayer(hijo, camino);
+					if (caminoAux != null){//Si esta condicion es verdadera significa que el metodo encontro el planeta del jugador
+						return caminoAux;
+					}
 					camino.RemoveAt(camino.Count - 1);//En caso de llegar a un camino equivocado elimino el ultimo elemento 
 				}
 			}
